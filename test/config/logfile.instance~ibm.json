@@ -1,9 +1,0 @@
-[
-    {
-		"name" : "Apache Access Log",
-		"host" : "localhost",
-		"logfilename" : "/Users/shahram/Desktop/ibm/test.log",
-		"logfileformat" : "%{ids}C %D %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\"",
-		"metricsofinterest" : "%{ids}C %D %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\""
-    }
-]

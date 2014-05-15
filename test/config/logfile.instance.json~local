@@ -1,9 +1,0 @@
-[
-    {
-		"name" : "My Local Apache Access Log",
-		"host" : "localhost",
-		"logfilename" : "/Users/shahram/apps/tomcat/apache-tomcat-7.0.41/logs/localhost_access_log.2013-08-16.txt",
-		"logfileformat" : "%h %l %u %t \"%r\" %s %b",
-		"metricsofinterest" : "%h %l %u %t \"%r\" %s %b",
-    }
-]

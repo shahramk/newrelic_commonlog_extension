@@ -1,9 +1,0 @@
-[
-    {
-		"name" : "Apache Access Log",
-		"host" : "localhost",
-		"logfilename" : "REPLACE_THIS_WITH_YOUR_APACHE_ACCESS_LOG_FILE",
-		"logfileformat" : "%{ids}C %D %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\"",
-		"metricsofinterest" : "%{ids}C %D %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\""
-    }
-]
