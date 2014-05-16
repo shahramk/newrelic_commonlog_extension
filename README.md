@@ -1,4 +1,4 @@
-Apache Common Log Format Reader
+Apache CommonLog Format Reader
 ==========================================================
 - - -
 The Apache Common Log Format Reader for New Relic reads log files that use the CommonLogFormat of Apache, and reports all fields to New Relic as metrics.
@@ -15,8 +15,7 @@ The Apache Common Log Format Reader for New Relic reads log files that use the C
 
 ##Additional Plugin Details:
 
-*	The plugin reads each field in log file in compliance with Apache CommonLog Format, and it reports them to New Relic.
-*	It keeps a pointer to the end of the data that is read each time, and on the next poll cycle it continues from that point. 
+*	This plugin reads each field in log file in compliance with Apache CommonLog Format, and it reports them to New Relic.
 *	If you append data to existing log file, the previous set of data will be reported multiple times. So make sure you overwrite the log file for each cycle.
 
 
@@ -31,7 +30,7 @@ Linux example:
 
 
 ## Configure the agent environment
-
+New Relic plugins run an agent processes to collect and report metrics to New Relic. In order for that you need to configure your New Relic license and plugin-specific properties. Additionally you can set the logging properties.
 
 
 ### Configure your New Relic license
@@ -44,11 +43,50 @@ Linux example:
 *    $ Edit config/newrelic.properties and paste in your license key
 
 ### Configure plugin properties
+Each plugin agent requires a JSON configuration file defining the access to the monitored log files. An example file is provided in the config directory.
 
+Edit config/logfile.instance.json and specify the necessary property values. Change the values for "name", "host", "logfilename", "logfileformat", and "metricsofinterest". The value of the name field will appear in the New Relic user interface for the log file reader instance (i.e. "My Local Apache Access Log"). 
+
+    [
+      {
+      "name"              : "My Local Apache Access Log",
+      "host"              : "localhost",
+      "logfilename"       : "/opt/apps/tomcat/logs/apache.log",
+      "logfileformat"     : "%h %l %u %t \"%r\" %s %b",
+      "metricsofinterest" : "%h %l %u %t \"%r\" %s %b"
+       }
+    ]
+
+  * name              - A friendly name that will show up in the New Relic Dashboard.
+  * host              - Hostname of the server being monitored.
+  * logfilename       - log file name that is being monitored.
+  * logfileformat     - apache commonlog format string as it appears in the log file.
+  * metricsofinterest - fields that you'd like to generate metric for.
+
+**Note:** Specify the above set of properties for each plugin instance. You will have to follow the syntax (embed the properties for each instance of the plugin in a pair of curley braces separated by a comma).
+
+**Note:** If you would like to monitor multiple log files, copy the block of JSON properties (separated by comma), and change the values accordingly. Example:
+
+    [
+      {
+      "name"              : "My Local Apache Access Log",
+      "host"              : "localhost",
+      "logfilename"       : "/opt/apps/tomcat/logs/apache.log",
+      "logfileformat"     : "%h %l %u %t \"%r\" %s %b",
+      "metricsofinterest" : "%h %l %u %t \"%r\" %s %b"
+      },
+      {
+      "name"              : "My Other Apache Access Log",
+      "host"              : "localhost",
+      "logfilename"       : "/opt/apps/tomcat8/logs/apache.log",
+      "logfileformat"     : "%h %l %u %t \"%r\" %s %b",
+      "metricsofinterest" : "%h %u %t \"%r\" %b"
+      }
+    ]
 
 
 ### Configure logging properties
-The plugin checks for the logging properties in config/logging.properties file. You can copy example_logging.properties and edit it if needed
+The plugin checks for the logging properties in config/logging.properties file. You can copy example_logging.properties and edit it if needed. By default he properties in this file are configured to log data at 'info' level to th console. You can edit the file and enable file logging.
 
 Linux example:
 
@@ -77,5 +115,3 @@ To run the plugin from the command line and detach the process so it will run in
 
 ## For support
 Plugin support for troubleshooting assistance can be obtained by visiting New Relic support web site: (https://support.newrelic.com)
-
-
